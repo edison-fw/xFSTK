@@ -15,15 +15,20 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 MESSAGE("\n**** Configuring Plugin: Cloverview ****")
 
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE(${QT_USE_FILE})
-
 set(UIFILES
     ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/cloverview/xfstkdldrpluginuserinterface.ui
     ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/cloverview/xfstkdldrpluginoptionsinterface.ui)
 
-# Run UIC on them
-QT4_WRAP_UI(UIC_SOURCES ${UIFILES})
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+  INCLUDE(${QT_USE_FILE})
+  QT4_WRAP_UI(UIC_SOURCES ${UIFILES})
+ELSE(NOT Qt5_FOUND)
+  QT5_WRAP_UI(UIC_SOURCES ${UIFILES})
+ENDIF(NOT Qt5_FOUND)
 
 SET(CV      ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/cloverview)
 SET(DLDR    ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader)
@@ -34,7 +39,8 @@ INCLUDE_DIRECTORIES(
     ${CV}
     ${DLDR}
     ${DA}
-    ${CMAKE_CURRENT_BINARY_DIR})
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${QT_INCLUDE_DIR})
 
 ADD_LIBRARY(XfstkDldrPluginCloverview
     SHARED

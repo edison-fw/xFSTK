@@ -417,7 +417,7 @@ QString XfstkDldrPluginUserInterface::DetermineCurrentFileSearchPath(QString Bin
             this->CurrentState.CurrentSearchDir = Path;
         }
         else {
-            this->CurrentState.CurrentSearchDir = QDesktopServices::displayName(QDesktopServices::DesktopLocation);
+            this->CurrentState.CurrentSearchDir = QStandardPaths::displayName(QStandardPaths::DesktopLocation);
         }
     }
     this->CurrentState.SuppressErrors = false;

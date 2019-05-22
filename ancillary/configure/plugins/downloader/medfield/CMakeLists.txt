@@ -15,13 +15,19 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 MESSAGE("\n**** Configuring Plugin: Medfield ****")
 
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE(${QT_USE_FILE})
-
 # Find ui files.
 FILE(GLOB GUI_UI ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/medfield/*.ui)
-# Run UIC on them
-QT4_WRAP_UI(UIC_SOURCES ${GUI_UI})
+
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+  INCLUDE(${QT_USE_FILE})
+  QT4_WRAP_UI(UIC_SOURCES ${GUI_UI})
+ELSE(NOT Qt5_FOUND)
+  QT5_WRAP_UI(UIC_SOURCES ${GUI_UI})
+ENDIF(NOT Qt5_FOUND)
 
 SET(MED ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/medfield)
 SET(DLDR ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader)
@@ -32,7 +38,8 @@ INCLUDE_DIRECTORIES(
     ${MED}
     ${DLDR}
     ${DAPI}
-    ${CMAKE_CURRENT_BINARY_DIR})
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${QT_INCLUDE_DIR})
 
 # Tell Cmake which sources to compile.
 SET (SRCS

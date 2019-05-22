@@ -28,6 +28,7 @@
 class XFSTKDLDRPLUGINTEMPLATESHARED_EXPORT XfstkDldrPluginMedfield : public QObject, public XfstkDldrPluginInterface
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.XfstkDldrPluginMedfield")
     Q_INTERFACES(XfstkDldrPluginInterface)
 
 public:

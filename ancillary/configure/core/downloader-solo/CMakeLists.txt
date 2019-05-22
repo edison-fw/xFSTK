@@ -17,12 +17,20 @@ MESSAGE("\n**** Configuring Downloader Solo ****")
 
 FIND_PACKAGE(Boost REQUIRED COMPONENTS program_options)
 
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE(${QT_USE_FILE})
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+  INCLUDE(${QT_USE_FILE})
+ENDIF(NOT Qt5_FOUND)
+
+set(CMAKE_CXX_FLAGS "-Wall -fPIC -std=c++11")
 
 SET(INC ${CMAKE_SOURCE_DIR}/xfstk-sources/core)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}
+    ${QT_INCLUDE_DIR}
     ${CMAKE_SOURCE_DIR}/xfstk-sources/core/factory
     ${INC}/factory
     ${INC}/command-line-helper

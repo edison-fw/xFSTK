@@ -28,6 +28,7 @@
 class XFSTKDLDRPLUGINTEMPLATESHARED_EXPORT XfstkDldrPluginCloverview : public QObject, public XfstkDldrPluginInterface
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.XfstkDldrPluginCloverview")
     Q_INTERFACES(XfstkDldrPluginInterface)
 
 public:

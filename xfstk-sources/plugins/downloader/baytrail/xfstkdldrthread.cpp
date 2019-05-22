@@ -30,7 +30,7 @@ void status(char *message, void *)
 
     QString temp = QTime::currentTime().toString();
     temp.append(QString(" - "));
-    temp.append(QString::fromAscii(message));
+    temp.append(QString::fromLatin1(message));
     temp.remove(QRegExp("[\\n\\r]"));
     GlobalBaytrailMessageString = temp;
     bool isprogress = false;

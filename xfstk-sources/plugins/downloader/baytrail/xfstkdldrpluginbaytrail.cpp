@@ -70,5 +70,3 @@ bool XfstkDldrPluginBaytrail::Init()
 {
     return true;
 }
-
-Q_EXPORT_PLUGIN2(XfstkDldrPluginBaytrail, XfstkDldrPluginBaytrail)

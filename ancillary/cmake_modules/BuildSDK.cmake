@@ -17,7 +17,7 @@
 MESSAGE("\n**** Building Downloader SDK ****")
 
 # Obtain api file location (a.k.a the shared library location)
-GET_PROPERTY(api_file_location TARGET xfstk-dldr-api PROPERTY LOCATION)
+set(api_file_location "$<TARGET_FILE:xfstk-dldr-api>")
 
 add_custom_target(SDK ALL DEPENDS xfstk-dldr-api)
 

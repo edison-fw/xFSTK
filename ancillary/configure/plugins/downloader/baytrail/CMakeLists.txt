@@ -15,13 +15,18 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 MESSAGE("\n**** Configuring Baytrail Plugin ****")
 
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE(${QT_USE_FILE})
-
 # Find ui files.
 file(GLOB GUI_UI ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/baytrail/*.ui)
-# Run UIC on them
-QT4_WRAP_UI(UIC_SOURCES ${GUI_UI})
+
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+  INCLUDE(${QT_USE_FILE})
+  QT4_WRAP_UI(UIC_SOURCES ${GUI_UI})
+ELSE(NOT Qt5_FOUND)
+  QT5_WRAP_UI(UIC_SOURCES ${GUI_UI})
+ENDIF(NOT Qt5_FOUND)
 
 SET(BAY     ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader/baytrail)
 SET(PLUG    ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader)
@@ -32,6 +37,7 @@ INCLUDE_DIRECTORIES(
     ${BAY}
     ${PLUG}
     ${API}
+    ${QT_INCLUDE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR})
 
 ADD_LIBRARY(XfstkDldrPluginBaytrail

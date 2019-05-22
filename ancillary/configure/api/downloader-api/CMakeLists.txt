@@ -16,16 +16,20 @@
 MESSAGE("\n**** Configuring API ****")
 
 FIND_PACKAGE(Boost REQUIRED COMPONENTS program_options)
-FIND_PACKAGE(Qt4 REQUIRED)
 FIND_PACKAGE(USB01)
 
-INCLUDE(${QT_USE_FILE}) 
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+ENDIF(NOT Qt5_FOUND)
 
 SET(INCLUDES ${CMAKE_SOURCE_DIR}/xfstk-sources/api/downloader-api)
 
 INCLUDE_DIRECTORIES(
     ${CMAKE_SOURCE_DIR}/xfstk-sources/core/factory
     ${INCLUDES}
+    ${QT_INCLUDE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_BINARY_DIR}/ancillary/configure/core/command-line-helper
     ${CMAKE_BINARY_DIR}/ancillary/configure/core/factory)
@@ -56,6 +60,7 @@ ADD_LIBRARY(xfstk-dldr-api
 TARGET_LINK_LIBRARIES(xfstk-dldr-api
     XfstkFactory
     ${USB_LIBRARIES}
+    ${QT_LIBRARIES}
     ${Boost_LIBRARIES})
 
 SET_TARGET_PROPERTIES(xfstk-dldr-api

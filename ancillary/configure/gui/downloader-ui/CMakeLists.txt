@@ -15,22 +15,34 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 MESSAGE("\n**** Configuring downloader-ui ****")
 
-QT4_WRAP_UI(UIC_SOURCES
-    ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkdldrgui.ui
-    ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstksettingsdialog.ui
-    ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkaboutdialog.ui)
+FIND_PACKAGE(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+SET(QT_INCLUDE_DIR ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+SET(QT_LIBRARIES ${Qt5Core_LIBRARIES} ${Qt5Gui_LIBRARIES} ${Qt5Widgets_LIBRARIES})
+IF(NOT Qt5_FOUND)
+  FIND_PACKAGE(Qt4 COMPONENTS QtGui QtWidgets)
+  INCLUDE(${QT_USE_FILE})
+  QT4_WRAP_UI(UIC_SOURCES
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkdldrgui.ui
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstksettingsdialog.ui
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkaboutdialog.ui)
+  QT4_ADD_RESOURCES(RESOURCES ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkresources.qrc)
+ELSE(NOT Qt5_FOUND)
+  QT5_WRAP_UI(UIC_SOURCES
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkdldrgui.ui
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstksettingsdialog.ui
+      ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkaboutdialog.ui)
+  QT5_ADD_RESOURCES(RESOURCES ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkresources.qrc)
+ENDIF(NOT Qt5_FOUND)
 
-FIND_PACKAGE(Qt4 REQUIRED)
-INCLUDE(${QT_USE_FILE})
-
-QT4_ADD_RESOURCES(RESOURCES ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkresources.qrc)
+set(CMAKE_CXX_FLAGS "-Wall -fPIC -std=c++11")
 
 SET(SRCS
     ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui
     ${CMAKE_SOURCE_DIR}/xfstk-sources/plugins/downloader)
 
 INCLUDE_DIRECTORIES(${SRCS}
-    ${CMAKE_CURRENT_BINARY_DIR})
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${QT_INCLUDE_DIR})
 
 ADD_EXECUTABLE(xfstk-dldr-gui
     ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstk.rc

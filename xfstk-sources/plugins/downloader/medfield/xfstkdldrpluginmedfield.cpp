@@ -69,5 +69,3 @@ bool XfstkDldrPluginMedfield::Init()
 {
     return true;
 }
-
-Q_EXPORT_PLUGIN2(XfstkDldrPluginMedfield, XfstkDldrPluginMedfield)

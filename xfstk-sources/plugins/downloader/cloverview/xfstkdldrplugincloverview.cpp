@@ -69,5 +69,3 @@ bool XfstkDldrPluginCloverview::Init()
 {
     return true;
 }
-
-Q_EXPORT_PLUGIN2(XfstkDldrPluginCloverview, XfstkDldrPluginCloverview)
