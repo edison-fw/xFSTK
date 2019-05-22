@@ -61,5 +61,5 @@ SET_TARGET_PROPERTIES(XfstkDldrPluginCloverview
         AUTOMOC true)
 
 INSTALL(TARGETS XfstkDldrPluginCloverview
-    LIBRARY DESTINATION /usr/lib/xfstk/xfstkdldrplugins
+    LIBRARY DESTINATION /usr/lib${LIBSUFFIX}/xfstk/xfstkdldrplugins
         COMPONENT gui)

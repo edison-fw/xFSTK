@@ -60,5 +60,5 @@ SET_TARGET_PROPERTIES(XfstkDldrPluginMerrifield
         AUTOMOC true)
 
 INSTALL(TARGETS XfstkDldrPluginMerrifield
-    LIBRARY DESTINATION /usr/lib/xfstk/xfstkdldrplugins
+    LIBRARY DESTINATION /usr/lib${LIBSUFFIX}/xfstk/xfstkdldrplugins
         COMPONENT gui)

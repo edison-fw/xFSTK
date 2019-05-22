@@ -67,5 +67,5 @@ SET_TARGET_PROPERTIES(XfstkDldrPluginMedfield
         AUTOMOC true)
                             
 INSTALL(TARGETS XfstkDldrPluginMedfield
-    LIBRARY DESTINATION /usr/lib/xfstk/xfstkdldrplugins
+    LIBRARY DESTINATION /usr/lib${LIBSUFFIX}/xfstk/xfstkdldrplugins
         COMPONENT gui)

@@ -59,5 +59,5 @@ SET_TARGET_PROPERTIES(XfstkDldrPluginBaytrail
         AUTOMOC true)
 
 INSTALL(TARGETS XfstkDldrPluginBaytrail
-    LIBRARY DESTINATION /usr/lib/xfstk/xfstkdldrplugins
+    LIBRARY DESTINATION /usr/lib${LIBSUFFIX}/xfstk/xfstkdldrplugins
         COMPONENT gui)

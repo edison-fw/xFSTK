@@ -39,6 +39,14 @@ MACRO(require FEATURE_NAME MESSAGE_STRING)
 	ENDIF()
 ENDMACRO(require)
 
+get_property(LIB64 GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS)
+
+if ("${LIB64}" STREQUAL "TRUE")
+    set(LIBSUFFIX 64)
+else()
+    set(LIBSUFFIX "")
+endif()
+
 # ** When a C++11 feature is introduced into the code, uncomment the equiviliant line so ensure compatability. **
 # require(HAS_CXX11_LONG_LONG "C++11 lambdas\t\t\t")
 # require(HAS_CXX11_AUTO "C++11 auto support:\t\t\t")
