@@ -1,5 +1,5 @@
 Install prerequisites:
-$ sudo apt-get install g++ qtbase5 qtcreator build-essential devscripts libxml2-dev alien doxygen graphviz libusb-dev libboost-all-dev 
+$ sudo apt-get install g++ qtbase5-dev qtcreator build-essential devscripts libxml2-dev alien doxygen graphviz libusb-dev libboost-all-dev 
 
 Install CMake:
 *note: Some repositories come with older versions of cmake. If that is the case, please build/install version cmake 2.8.11 or later
