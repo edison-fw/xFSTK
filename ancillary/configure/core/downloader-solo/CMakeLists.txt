@@ -25,7 +25,7 @@ IF(NOT Qt5_FOUND)
   INCLUDE(${QT_USE_FILE})
 ENDIF(NOT Qt5_FOUND)
 
-set(CMAKE_CXX_FLAGS "-Wall -fPIC -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC -std=c++11")
 
 SET(INC ${CMAKE_SOURCE_DIR}/xfstk-sources/core)
 

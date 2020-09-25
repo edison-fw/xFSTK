@@ -34,7 +34,7 @@ ELSE(NOT Qt5_FOUND)
   QT5_ADD_RESOURCES(RESOURCES ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui/xfstkresources.qrc)
 ENDIF(NOT Qt5_FOUND)
 
-set(CMAKE_CXX_FLAGS "-Wall -fPIC -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC -std=c++11")
 
 SET(SRCS
     ${CMAKE_SOURCE_DIR}/xfstk-sources/gui/downloader-ui
