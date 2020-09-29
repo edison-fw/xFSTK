@@ -51,5 +51,5 @@ TARGET_LINK_LIBRARIES(xfstk-dldr-solo
     )
 
 INSTALL(TARGETS xfstk-dldr-solo
-  RUNTIME DESTINATION /usr/bin
-    COMPONENT cli)
+  RUNTIME 
+  COMPONENT cli)
