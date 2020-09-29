@@ -14,6 +14,8 @@
 #    License along with this library; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+include(GNUInstallDirs)
+
 MESSAGE("\n**** Begin Packaging Configuration ****")
 
 SET(CPACK_PACKAGE_CONTACT		"Intel Corporation <xfstk@intel.com>")
@@ -61,7 +63,7 @@ INSTALL(FILES "${SRC}/usr/share/applications/xfstk-downloader.desktop"
   COMPONENT gui)
 
 INSTALL(FILES "${SRC}/usr/bin/xfstk-ui-launcher.sh"
-  DESTINATION  "${CMAKE_INSTALL_BINDIR}"
+  	DESTINATION  "${CMAKE_INSTALL_BINDIR}"
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
   COMPONENT gui)
 	
