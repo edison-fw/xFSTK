@@ -70,7 +70,7 @@ SET_TARGET_PROPERTIES(xfstk-dldr-api
 
 INSTALL(TARGETS xfstk-dldr-gui-api
     LIBRARY
-        DESTINATION lib${LIBSUFFIX}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}
         NAMELINK_SKIP
         COMPONENT lib)
         

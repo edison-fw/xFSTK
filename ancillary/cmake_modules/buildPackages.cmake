@@ -51,32 +51,32 @@ LIST(APPEND CPACK_INSTALL_COMMANDS
 # Need special permissions on Intel.ini so every user can edit it. This should then go in the user's home
 # directory but we'll try to set open permssions on it for now.
 INSTALL(FILES "${SRC}/usr/lib/xfstk/xfstkdldrplugins/Intel.ini"
-  DESTINATION  "/usr/lib/xfstk/xfstkdldrplugins"
+	DESTINATION  "${CMAKE_INSTALL_LIBDIR}/xfstk/xfstkdldrplugins"
   PERMISSIONS OWNER_READ GROUP_READ WORLD_READ OWNER_WRITE GROUP_WRITE WORLD_WRITE
   COMPONENT gui)
 
 INSTALL(FILES "${SRC}/usr/share/applications/xfstk-downloader.desktop"
-  DESTINATION  "/usr/share/applications"
+	DESTINATION  "${CMAKE_INSTALL_DATADIR}/applications"
   PERMISSIONS OWNER_READ GROUP_READ WORLD_READ OWNER_WRITE GROUP_WRITE WORLD_WRITE
   COMPONENT gui)
 
 INSTALL(FILES "${SRC}/usr/bin/xfstk-ui-launcher.sh"
-  DESTINATION  "/usr/bin"
+  DESTINATION  "${CMAKE_INSTALL_BINDIR}"
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
   COMPONENT gui)
 	
 INSTALL(FILES "${SRC}/usr/share/pixmaps/xfstklogo.png"
-  DESTINATION  "/usr/share/pixmaps"
+	DESTINATION  "${CMAKE_INSTALL_DATADIR}/pixmaps"
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
   COMPONENT gui)
 	
 INSTALL(FILES "${PROJECT_BINARY_DIR}/xfstk-sdk-x86_64.tar.gz"
-  DESTINATION  "/usr/lib/xfstk"
+	DESTINATION  "${CMAKE_INSTALL_LIBDIR}/xfstk"
   COMPONENT gui)
 	
 # and make sure the docs are in the package.
 INSTALL(DIRECTORY "${PROJECT_BINARY_DIR}/docs/html"
-  DESTINATION  "/usr/share/doc/xfstk-downloader"
+	DESTINATION  "${CMAKE_INSTALL_DOCDIR}/xfstk-downloader"
   COMPONENT lib)
 
 SET(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST
