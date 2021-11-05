@@ -289,7 +289,7 @@ int MerrifieldUSB20Device::GetNumberAvailableDevices(DeviceInfos* socdevices)
                 if (i >= 32)
                     continue;
                 handle = usb_open(dev);
-                if (handle < 0)
+                if (!handle)
                     continue;
                 memset(&socdevices->soc_device[i], 0, sizeof(DeviceInfo));
                 usb_get_string_simple(handle, dev->descriptor.iSerialNumber, socdevices->soc_device[i].usbsn, 128);
