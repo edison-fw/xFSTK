@@ -3,7 +3,7 @@ $ sudo apt-get install g++ qtbase5-dev qtcreator build-essential devscripts libx
 
 Install CMake. Ubuntu 20.04 has 3.16.3*
 
-*note: Some repositories come with older versions of cmake. If that is the case, please build/install version cmake 2.8.11 or later
+*note: Some repositories come with older versions of cmake. If that is the case, please build/install version cmake 2.8.12 or later
 http://www.cmake.org/cmake/resources/software.html
 Recommended version:
 http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
