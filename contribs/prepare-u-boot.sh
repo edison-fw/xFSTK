@@ -7,15 +7,39 @@
 # Version for stable edison-v2016.11 and edison-v2017.01
 #dd if=u-boot.bin of=u-boot-4k.bin bs=4k seek=1 && truncate -s %4096 u-boot-4k.bin
 
-# OSIP header (0x000000)
+# OSIP header (0x000000) for Intel Edison
 base64 -d << EOF | xz -d > u-boot-edison.img
 /Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj4AH/ADJdABITxmI/dj2HEN524/dYfdgu
 VSVrkQEE6XSgsZnwdRltLRkU6GTigpK5eAw3CQAaRzcAAAAAtBe6DKrPzUcAAU6A
 BAAAAASYg8ixxGf7AgAAAAAEWVo=
 EOF
 
+# OSIP header (0x000000) for Dell Venue 7 3740
+base64 -d << EOF | xz -d > u-boot-venue7-3740.img
+/Td6WFoAAATm1rRGAgAhARYAAAB0L+Wj4AH/ACVdABITxmI/dj2mun+hQ6HTOrxiAZIam5M83oke
+XAr75ok9v2hUsAAAAAAA/BHNkI50EiMAAUGABAAAANEq1TmxxGf7AgAAAAAEWVo=
+EOF
+
 # U-Boot binary (0x000200), it has an additional offset 0x001000
 dd if=u-boot.bin of=u-boot-edison.img bs=512 seek=1
+dd if=u-boot.bin of=u-boot-venue7-3740.img bs=512 seek=1
+
+# Binary size in sectors
+size=$(stat -c "%s" u-boot.bin)
+sectors=$(printf "%08x" $(((size + 512 - 1) / 512)) | grep -o .. | tac)
+echo $sectors | xxd -r -p | dd of=u-boot-venue7-3740.img bs=1 seek=48 conv=notrunc
+
+# XOR checksum of the OSIP and OSII headers
+csum=0
+for b in $(seq 0x00 $((0x20 + 0x18 - 1))); do
+	byte=$(dd if=u-boot-venue7-3740.img bs=1 skip=$b count=1 2>/dev/null)
+	dec=$(printf "%d" "'$byte")
+	csum=$((csum ^ dec))
+done
+printf "%02x" $csum | xxd -r -p | dd of=u-boot-venue7-3740.img bs=1 seek=7 conv=notrunc
+
+# Pad the rest of the file to be LBA aligned
+truncate -s %512 u-boot-venue7-3740.img
 
 # Get original evironment as a text file
 #strings edison-blankcdc.bin > edison-environment.txt
